@@ -96,6 +96,7 @@ module.exports = {
         ]
        }],
        "semi": ["error", "always"],
-       "no-multi-spaces": "error"
+       "no-multi-spaces": "error",
+       'no-unused-vars': 'off',
     },
 };
