@@ -46,19 +46,16 @@ const props = defineProps({
 .small {
     border-radius: 4px;
     height: 10px;
-    width: 80px;
 }
 
 .medium {
     border-radius: 4px;
     height: 10px;
-    width: 170px;
 }
 
 .large {
     border-radius: 8px;
     height: 26px;
-    width: 190px;
 }
 
 </style>

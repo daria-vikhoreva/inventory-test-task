@@ -2,7 +2,7 @@
     <div class="left-component">
         <div class="left-component__img">
             <template v-if="isLoading">
-                <img src="../assets/images/left_img.png" 
+                <img src="../../assets/images/left_img.png" 
                      alt="img">
             </template>
             <template v-else>
@@ -41,8 +41,9 @@
 
 <script setup>
 import { ref } from 'vue';
-import UiSkeleton from './UI/UiSkeleton.vue';
-const isLoading = ref('true');
+import UiSkeleton from '../UI/UiSkeleton.vue';
+
+const isLoading = ref(true);
 const countOfLines = ref(5);
 </script>
 
@@ -58,10 +59,20 @@ const countOfLines = ref(5);
     border-radius: 12px;
 	border: 1px solid #4d4d4d;
 	background: #262626;
+    &__title {
+        max-width: 190px;
+        width: 100%;
+    }
     &__description {
         display: flex;
         flex-direction: column;
         gap: 16px;
+        max-width: 180px;
+        width: 100%;
+    }
+    &__bottom-info {
+        max-width: 80px;
+        width: 100%;
     }
 }
 </style>
