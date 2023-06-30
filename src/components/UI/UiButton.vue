@@ -23,6 +23,8 @@ defineProps({
     border-radius: 8px; 
     font-family: 'SF Pro Display', sans-serif;
     border: none;
+    cursor: pointer;
+    width: 100%;
 }
 
 .red {
@@ -37,11 +39,10 @@ defineProps({
 
 .large {
     padding: 11px;
-    width: 100%;
 }
 
 .small {
-    padding: 8px 28px;
-    width: max-content;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 </style>
