@@ -40,11 +40,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import UiSkeleton from '../UI/UiSkeleton.vue';
+import { useInventoryStore } from '../../stores/store';
 
-const isLoading = ref(true);
-const countOfLines = ref(5);
+const store = useInventoryStore();
+const isLoading = computed(() => store.loading);
+const countOfLines = computed(() => store.countOfLines);
 </script>
 
 <style lang="scss" scoped>

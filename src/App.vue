@@ -7,7 +7,7 @@ import InventorySheet from './components/Inventory/InventorySheet.vue';
 <template>
     <div class="container">
         <div class="wrapper">
-            <InventoryLeftComponent/>
+            <InventoryLeftComponent/> 
             <InventorySheet/>
         </div>
         <InventoryBottomComponent/>

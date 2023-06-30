@@ -98,5 +98,7 @@ module.exports = {
        "semi": ["error", "always"],
        "no-multi-spaces": "error",
        'no-unused-vars': 'off',
+       "no-undef": ["warn", { "typeof": true }],
+       "no-dupe-keys": 'off'
     },
 };
