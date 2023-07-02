@@ -138,6 +138,10 @@ const deleteItems = (item, value) => {
     &__item {
         width: 100%;
         height: 100%;
+        cursor: pointer;
+        &:hover {
+            background-color: #2F2F2F;
+        }
     }  
 }
 </style>
