@@ -1,15 +1,29 @@
 <template>
     <input type="text"
            class="input"
-           :placeholder="placeholder">
+           :placeholder="placeholder"
+           :value="modelValue"
+           @input="handleInput">
 </template>
 
 <script setup>
 const props = defineProps({
     placeholder: {
         type: String
+    },
+    modelValue: {
+        type: String
     }
 });
+
+const emit = defineEmits(['update:modelValue']);
+
+const handleInput = (event) => {
+    const value = event.target.value.trim();
+    if (!isNaN(value)) {
+        emit('update:modelValue', value);
+    }
+};
 </script>
 
 <style lang="scss" scoped>

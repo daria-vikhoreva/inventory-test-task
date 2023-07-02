@@ -1,37 +1,46 @@
 <template>
-    <div class="wrapper">
+    <div v-if="item"
+         class="wrapper">
+
         <div class="close-btn"
              @click="closeModal">
             <img src="../assets/images/carbon_close.svg"
                  alt="close" 
                  class="close-btn__img">
         </div>
+
         <div class="modal">
-            <img src="../assets/images/item_img1.svg"
+            <img :src="item.link"
                  alt="item-img"
                  class="modal__img">
 
-            <div class="modal__divider modal__divider_1"/>
+            <div class="modal__divider"/>
+
             <div class="modal__title">
                 <template v-if="isLoading">
                     <UiSkeleton size="large"/>
                 </template>
                 <template v-else>
-                    Заголовок карточки
+                    {{ item.title }}: {{ item.count }} шт.
                 </template>
             </div>
+
             <div class="modal__description">
                 <template v-if="isLoading">
-                    <UiSkeleton v-for="line in countOfLines"
+                    <UiSkeleton v-for="line in item.description.length"
                                 :key="line"
                                 size="medium"/>
                 </template>
                 <template v-else>
-                    Описание карточки
+                    <div v-for="(line, index) in item.description"
+                         :key="index">
+                        {{ line }}
+                    </div>
                 </template>
             </div>
-            <div class="modal__divider modal__divider_2"/>
-        
+
+            <div class="modal__divider"/>
+
             <div class="modal__actions">
                 <UiButton color="red"
                           size="large"
@@ -40,19 +49,23 @@
                 </UiButton>
             </div>
         </div>
+
         <div v-show="isOpen"
              class="confirm-modal">
-            <UiInput placeholder="Введите количество"/>
+
+            <UiInput v-model="inputValue"
+                     placeholder="Введите количество"/>
+                     
             <div class="confirm-modal__buttons">
                 <UiButton color="white"
                           size="small"
                           @click="closeInput">Отмена</UiButton>
                 <UiButton color="red"
-                          size="small">Подтвердить</UiButton>
+                          size="small"
+                          @click="deleteItems(item)">Подтвердить</UiButton>
             </div>
         </div>
     </div>
-   
 </template>
 
 <script setup>
@@ -62,10 +75,16 @@ import UiButton from './UI/UiButton.vue';
 import UiInput from './UI/UiInput.vue';
 import { useInventoryStore } from '../stores/store';
 
+const props = defineProps({
+    item: {
+        type: Object,
+    }
+});
+
 const store = useInventoryStore();
 const isLoading = computed(() => store.loading);
-const countOfLines = computed(() => store.countOfLines);
-const isOpen = ref(true);
+const isOpen = ref(false);
+const inputValue = ref('');
 
 const openInput = () => {
     isOpen.value = true;
@@ -75,10 +94,16 @@ const closeInput = () => {
     isOpen.value = false;
 };
 
-const emit = defineEmits(["close-modal"]);
+const emit = defineEmits(["close-modal", "delete-items", 'update:modelValue']);
 
-const closeModal = (e) => {
-    emit("close-modal", e.target);
+const closeModal = (event) => {
+    emit("close-modal", event.target);
+};
+
+const deleteItems = (item) => {
+    emit("delete-items", item, inputValue.value);
+    inputValue.value ='';
+    closeInput();
 };
 </script>
 
@@ -99,8 +124,10 @@ const closeModal = (e) => {
 .modal {
     display: flex;
     flex-direction: column;
-    padding-top: 50px;
-    padding: 50px 15px 24px 15px;
+    padding: 35px 15px 25px 15px;
+    font-family: 'Inter';
+    color: #fff;
+    font-size: 16px;
     &__img {
         width: 130px;
         margin: 0 auto;
@@ -108,15 +135,11 @@ const closeModal = (e) => {
     &__divider {
         height: 1px; 
         background-color: #4D4D4D;
-        &_1 {
-            margin-top: 30px;
-        }
-        &_2 {
-            margin-top: 24px;
-        }
+        margin-top: 22px;
     }
     &__title {
         margin-top: 16px;
+        font-size: 19px;
     }
     &__description {
         margin-top: 24px;

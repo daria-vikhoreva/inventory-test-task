@@ -1,14 +1,10 @@
 <template>
     <div class="left-component">
         <div class="left-component__img">
-            <template v-if="isLoading">
-                <img src="../../assets/images/left_img.png" 
-                     alt="img">
-            </template>
-            <template v-else>
-                Изображение карточки
-            </template>
+            <img src="../../assets/images/left_img.png" 
+                 alt="img">
         </div>
+
         <div class="left-component__title">
             <template v-if="isLoading">
                 <UiSkeleton size="large"/>
@@ -20,20 +16,13 @@
 
         <div class="left-component__description">
             <template v-if="isLoading">
-                <UiSkeleton v-for="line in countOfLines"
+                <UiSkeleton v-for="line in lines"
                             :key="line"/>
-                
             </template>
             <template v-else>
-                Описание карточки
-            </template>
-        </div>
-        <div class="left-component__bottom-info">
-            <template v-if="isLoading">
-                <UiSkeleton size="small"/>
-            </template>
-            <template v-else>
-                Описание карточки
+                <div v-for="line in lines"
+                     :key="line">
+                    Описание: {{ line }} строка</div>
             </template>
         </div>
     </div>
@@ -46,7 +35,8 @@ import { useInventoryStore } from '../../stores/store';
 
 const store = useInventoryStore();
 const isLoading = computed(() => store.loading);
-const countOfLines = computed(() => store.countOfLines);
+
+const lines = 5;
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +51,11 @@ const countOfLines = computed(() => store.countOfLines);
     border-radius: 12px;
 	border: 1px solid #4d4d4d;
 	background: #262626;
+    font-family: 'Inter';
+    color: #fff;
+    font-size: 16px;
     &__title {
+        font-size: 19px;
         max-width: 190px;
         width: 100%;
     }
@@ -70,10 +64,6 @@ const countOfLines = computed(() => store.countOfLines);
         flex-direction: column;
         gap: 16px;
         max-width: 180px;
-        width: 100%;
-    }
-    &__bottom-info {
-        max-width: 80px;
         width: 100%;
     }
 }

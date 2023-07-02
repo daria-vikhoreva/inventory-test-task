@@ -13,6 +13,12 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
+@keyframes animate {
+    100% {
+      transform: translateX(100%);
+    }
+}
+
 .skeleton {
 	background: linear-gradient(90deg, #3c3c3c 0%, #444 51.04%, #333 100%);
     width: 100%;
@@ -32,14 +38,8 @@ const props = defineProps({
             rgba(#fff, 0.5) 50%,
             rgba(#fff, 0)
         );
-        animation: shimmer 5s infinite;
+        animation: animate 5s infinite;
         content: '';
-    }
-}
-
-@keyframes shimmer {
-    100% {
-      transform: translateX(100%);
     }
 }
 
@@ -47,15 +47,12 @@ const props = defineProps({
     border-radius: 4px;
     height: 10px;
 }
-
 .medium {
     border-radius: 4px;
     height: 10px;
 }
-
 .large {
     border-radius: 8px;
     height: 26px;
 }
-
 </style>
