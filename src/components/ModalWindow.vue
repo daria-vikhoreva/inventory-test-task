@@ -4,16 +4,19 @@
 
         <div class="close-btn"
              @click="closeModal">
-            <img src="../assets/images/carbon_close.svg"
-                 alt="close" 
-                 class="close-btn__img">
+            <UiIcon :item="close"
+                    class="close-btn__img"/>
         </div>
 
         <div class="modal">
-            <img :src="item.link"
-                 alt="item-img"
-                 class="modal__img">
-
+            <div class="modal__img-wrapper">
+                <UiIcon
+                    :key="item.number"
+                    :number="item.number"
+                    :item="item-img"
+                    class="modal__img"/>
+            </div>
+            
             <div class="modal__divider"/>
 
             <div class="modal__title">
@@ -73,6 +76,7 @@ import { ref, computed } from 'vue';
 import UiSkeleton from './UI/UiSkeleton.vue';
 import UiButton from './UI/UiButton.vue';
 import UiInput from './UI/UiInput.vue';
+import UiIcon from './UI/UiIcon.vue';
 import { useInventoryStore } from '../stores/store';
 
 const props = defineProps({
@@ -124,18 +128,21 @@ const deleteItems = (item) => {
 .modal {
     display: flex;
     flex-direction: column;
-    padding: 35px 15px 25px 15px;
+    padding: 45px 15px 25px 15px;
     font-family: 'Inter';
     color: #fff;
     font-size: 16px;
     &__img {
         width: 130px;
         margin: 0 auto;
+        &-wrapper {
+            height: 130px;
+        }
     }
     &__divider {
         height: 1px; 
         background-color: #4D4D4D;
-        margin-top: 22px;
+        margin-top: 28px;
     }
     &__title {
         margin-top: 16px;

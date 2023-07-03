@@ -3,9 +3,7 @@
         <template v-if="isOpen">
             <div class="close-btn"
                  @click="closeComponent">
-                <img src="../../assets/images/carbon_close.svg"
-                     alt="close" 
-                     class="close-btn__img">
+                <UiIcon item="close"/>
             </div>
             <template v-if="isLoading">
                 <UiSkeleton size="large"/>
@@ -26,6 +24,7 @@
 import { ref, computed } from 'vue';
 import UiSkeleton from '../UI/UiSkeleton.vue';
 import { useInventoryStore } from '../../stores/store';
+import UiIcon from '../UI/UiIcon.vue';
 
 const store = useInventoryStore();
 const isLoading = computed(() => store.loading);
@@ -44,7 +43,7 @@ const closeComponent = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 18px;
+    padding: 18px 45px 18px 18px;
     border-radius: 12px;
 	border: 1px solid #4d4d4d;
 	background: #262626;

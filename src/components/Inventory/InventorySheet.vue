@@ -6,14 +6,14 @@
                 :key="index"
                 class="sheet__cell"
                 @dragover.prevent
-                @drop.prevent="handleDrop($event, cell)">
-                <template v-if="getElementByPosition(cell)">
-                    <InventoryItem
-                        :item="getElementByPosition(cell)"
-                        class="sheet__item"
-                        @click="openModal(getElementByPosition(cell))"
-                    />
-                </template>
+                @drop.prevent="handleDrop($event, cell)"
+            >
+                <InventoryItem
+                    v-if="getElementByPosition(cell)"
+                    :item="getElementByPosition(cell)"
+                    class="sheet__item"
+                    @click="openModal(getElementByPosition(cell))"
+                />
             </InventorySheetCell>
         </div>
         <ModalWindow 
@@ -64,7 +64,7 @@ const handleDrop = (event, cell) => {
     const elementId = event.dataTransfer.getData('text/plain');
     const item = inventoryItems.value.find(item => item.id.toString() === elementId);
 
-    if (item) {
+    if (item && !getElementByPosition(cell)) {
         item.position = cell;
         localStorage.setItem('inventory', JSON.stringify(inventoryItems.value));
     }
@@ -91,6 +91,7 @@ const deleteItems = (item, value) => {
 }
 
 .wrapper {
+    max-height: 500px;
     position: relative;
     overflow: hidden;
 }

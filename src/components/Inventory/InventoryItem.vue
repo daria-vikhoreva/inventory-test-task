@@ -1,15 +1,18 @@
 <template>
-    <div class="item"
-         :draggable="draggable"
-         :class="{ 'item_dragging': draggable }"
-         @dragstart="startDrag($event, item)"
-         @dragend="endDrag"
-         @dragover="allowDrop"
-         @drop="onDrop">
-
-        <img :src="item.link"
-             alt="img"
-             class="item__img">
+    <div 
+        class="item"
+        :draggable="true"
+        :class="{ 'item_dragging': draggable }"
+        @dragstart="startDrag($event, item)"
+        @dragend="endDrag"
+    >
+        <div class="item__img img">
+            <UiIcon
+                :number="item.number"
+                :item="item-img"
+                class="img__elem"
+            />
+        </div>
 
         <div class="item__count">
             <span>{{ item.count }}</span>
@@ -19,18 +22,13 @@
 
 <script setup>
 import { ref } from 'vue';
+import UiIcon from '../UI/UiIcon.vue';
 
 const props = defineProps({
     item: {
         type: Object,
     }
 });
-
-const emit = defineEmits([
-    "updated:startDrag",
-    "updated:endDrag",
-    "updated:drop"]  
-);
 
 const draggable = ref(false);
 
@@ -42,14 +40,6 @@ const startDrag = (event, item) => {
 const endDrag = () => {
     draggable.value = false;
 };
-
-const allowDrop = (event) => {
-    event.preventDefault();
-};
-
-const onDrop = (event) => {
-    event.preventDefault();
-};
 </script>
 
 <style lang="scss" scoped>
@@ -60,9 +50,11 @@ const onDrop = (event) => {
     opacity: 1;
     transition: opacity 0.3s ease;
     &__img {
-        width: 54px;
+        display: flex;
+        align-items: center;
     }
     &__count {
+        user-select: none;
         font-family: 'Inter', sans-serif;
         font-size: 10px;
         position: absolute;
@@ -78,6 +70,12 @@ const onDrop = (event) => {
     }
     &_dragging {
         opacity: 0.5;
+    }
+}
+
+.img {
+    &__elem {
+        width: 54px;
     }
 }
 </style>

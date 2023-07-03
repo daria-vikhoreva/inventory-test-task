@@ -53,6 +53,6 @@ const props = defineProps({
 }
 .large {
     border-radius: 8px;
-    height: 26px;
+    height: 36px;
 }
 </style>
